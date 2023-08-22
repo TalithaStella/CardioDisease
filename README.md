@@ -22,14 +22,13 @@ Portanto o seu trabalho como Data Scientist é criar um ferramenta de classifica
 2. Quanto lucro a Cardio Catch Diseases passará a ter com a nova ferramenta?
 3. Qual a Confiabilidade do resultado dados pela nova ferra enta?
 
-**Principais Ferramentas utilizadas:** 
-- Python (pandas, math, inflection, numpy, seaborn, matplotlib, tabulate), 
-- Machine Learning (XGBoost, random, scipy, sklearn: Random Forest, LinearRegression, Lasso, boruta) 
-- Estatística (Skleanin.metrics, RobustScaler, MinMaxScaler, LabelEncoder) 
-- API (pickle, request, Flask, json)
-- Render, Telegram, VSCode, Jupyter Notebook
+#### **Principais Ferramentas utilizadas:** 
+- Python (pandas, numpy, seaborn, matplotlib, dyton, HTML), 
+- Machine Learning (XGBoost, LGBMClassifier, scipy, sklearn: BaggingClassifier, RandomForestClassifier, KNeighborsClassifier, DecisionTreeClassifier ) 
+- Estatística (Skleanin.metrics:accuracy_score, recall_score, precision_score, balanced_accuracy_score, f1_score, roc_curve, confusion_matrix) 
+- VSCode, Jupyter Notebook
 
-## 2. Planejamento
+## 2. Planning
 
 A construção do projeto foi realizada com a metodologia CRISP-DM, isto é, um método cíclico de solução de problemas de Ciência de Dados. O objetivo é entregar valor o mais rápido possível para o negócio e melhorar continuamente a solução. Para saber mais leia em [Medium](https://medium.com/comunidadeds/voc%C3%AA-tem-os-dados-tem-o-problema-de-neg%C3%B3cio-mas-e-agora-o-que-fazer-bf3b2d06482)
 
@@ -70,36 +69,47 @@ Para facilitar a criação de hipósteses foi criado o mapa mental abaixo:
 </div><br>
 
 
-De acordo com o nosso banco dde dados foi possível validar as seguintes hipóteses:
+De acordo com o nosso banco de dados foi possível validar as seguintes hipóteses:
+<hr>
 
 **Hypothesis 01:**
-Pessoas com IMC alto tem mais propensão à desenvolver problemas cardíacos
+Pessoas com IMC alto tem mais propensão à desenvolver problemas cardíacos: 
 **True**
+
+A principal diferença pode ser vista no primeiro gráfico, onde apesar das semelhanças nos volume de dados pra cada categoria, vemos maior densidade de pessoas com IMC mais alto doentes. 
 <div align="center">
 <img src="https://imgur.com/M61cjHM.png" />
 </div><br>
 
 **Hypothesis 02:**
-Fumantes tem mais propensão à desenvolver problemas cardíacos
-**False.**
+Fumantes tem mais propensão à desenvolver problemas cardíacos: **False.**
+
+Importante lembrar que essa constatação é falsa em relação aos dados análisados
 <div align="center">
-<img src="https://imgur.com/BTItbwi.png" />
+<img src="https://imgur.com/v2qLeTB.png" />
 </div><br>
 
 **Hypothesis 03:**
-Pessoas que bebem tem mais propensão à desenvolver problemas cardíacos
-**False.**
+Pessoas que bebem tem mais propensão à desenvolver problemas cardíacos: **False.**
+Importante lembrar que essa constatação é falsa em relação aos dados análisados
 <div align="center">
 <img src="https://imgur.com/UKKrcNC.png" />
 </div><br>
+<hr>
 
 
 # 5. Machine Learning Model Applied
 
 Foram treinados alguns modelos de ML e dentre eles foi separado os modelos com melhores parâmetros para fazer avaliação de performance. 
 <div align="center">
-<img src="https://imgur.com/6hLimWs.png" />
+<img src="https://imgur.com/6Cjy4IN.png" />
 </div><br>
+
+Conforme observado, para o contexto do nosso projeto, somos:
+
+- No lado comercial , visando a precisão, pois cada 5% a mais na precisão se traduz em US$ 500 a mais em cada diagnóstico feito.
+- Do lado do paciente , visando o recall, pois estamos tentando minimizar a taxa de falsos negativos.
+Além disso, estamos tentando alcançar um equilíbrio entre precisão e rechamada . Podemos usar o f1-score como uma métrica que pode nos fornecer esse equilíbrio. Assim, o algoritmo que satisfaz essa necessidade é LGBMClassifier.
 
 Escolhi seguir com os modelos: XGBoostClassifier, LGBMClassifier, LogistiRegression e SGDClassifier pois apresentaram o melhor balanço entre Precisão, Recall e f1-score.
 
@@ -110,11 +120,14 @@ Dos 4 modelos escolhidos o XGBoostClassifier e o LGBMClassifier apresentaram o m
 Contudo, preferi seguir com o XGBoostClassifier por ser mais rápido e mais optimizado de maneira geral. 
 
 Avaliação da Matrix de confusão:
+Apesar do Logistic Regression apresentar a melhor precisão e o SGD o melhor recall, estamos procurando pelo equilíbrio entre eles, por isso isso o modelo XGB e LGBM ainda apresentam melhor desempenho.
 <div align="center">
 <img src="https://imgur.com/0usIK4Y.png" />
 </div><br>
 
 Avaliação da Curva ROC:
+
+O modelo XGB e LGBM apresentaram performances muito parecidas e ambas superiores ao SGO e LR.
 <div align="center">
 <img src="https://imgur.com/CH8YXK0.png" />
 </div><br>
@@ -122,9 +135,22 @@ Avaliação da Curva ROC:
 
 # 7. Business Results e Conclusão
 
-Os calculos finais foram calculados com base na métrica pré-estabelecida pela área de negócio: a precisão. Com isso, se o modelo fosse implementado poderia ser esperado um retorno de $180,490,556.97 no melhor cenário, no pior cenário: $163,173,926.15 tendo uma média de: $171,832,241.56.
+Os calculos finais foram obtidos com base na métrica pré-estabelecida pela área de negócio: a precisão. Com isso, se o modelo fosse implementado poderia ser esperado o seguinte retorno financeiro:
 
-Somente com esse resultado já vemos um retorno financeiro muito vantajogo para empresa. Contudo, seria importante levar em consideração que, se tratando de um problema médico, caberia avaliar se a precisão seria a melhor escolha. Isso porque as chances de falsos negativos podem ser grande, logo, seria um problema para o paciente deixar de ter o diagnóstico de um problema cardíaco. Neste caso, um bom parâmetro de avaliação poderia ser o equilíbio entre a precisão e o recall, como por exemplo o f1-score.
+De acordo com a área de negócio, atualmente o faturamento é calculado a cada 5% acima de 50% de precisão dos profissionais. A representação disso fica desta maneira: 
+
+| Precisão      | Preço          | Regra                                    | Exemplo                         |
+|:--------------|:---------------|:-----------------------------------------|:--------------------------------|
+| Acima de 50%  | min \$500\.00  | \+\$500 para cada 5% precisão a mais     | Precisão = 55% \-> \$1,000\.00  |
+| Até 50%       | $0\.00         | N/A                                      | N/A                             |
+
+|                        | Melhor Cenário    | Pior Cenário      | Media             |
+|:-----------------------|------------------:|------------------:|------------------:|
+| Retorno atual          |  \$105,000,000.00 | \$35,000,000.00   |                   |
+| Retorno do modelo      |\$180,490,556.97  | \$163,173,926.15  | \$171,832,241.56.  |
+
+
+Somente com esse resultado já vemos um retorno financeiro muito vantajoso para empresa. Contudo, seria importante levar em consideração que, se tratando de um problema médico, caberia avaliar se a precisão seria a melhor escolha. Isso porque as chances de falsos negativos podem ser grande, logo, seria um problema para o paciente deixar de ter o diagnóstico de um problema cardíaco. Neste caso, um bom parâmetro de avaliação poderia ser o equilíbio entre a precisão e o recall, como por exemplo o f1-score.
 
 
 # 10. Next Steps to Improve
