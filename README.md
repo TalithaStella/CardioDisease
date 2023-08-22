@@ -66,7 +66,7 @@ O filtro dos outliers foram feitos com base na literatura.
 
 Para facilitar a criação de hipósteses foi criado o mapa mental abaixo: 
 <div align="center">
-<img src="https://imgur.com/IzZnQje" />
+<img src="https://imgur.com/IzZnQje.png" />
 </div><br>
 
 
@@ -76,21 +76,21 @@ De acordo com o nosso banco dde dados foi possível validar as seguintes hipóte
 Pessoas com IMC alto tem mais propensão à desenvolver problemas cardíacos
 **True**
 <div align="center">
-<img src="https://imgur.com/M61cjHM" />
+<img src="https://imgur.com/M61cjHM.png" />
 </div><br>
 
 **Hypothesis 02:**
 Fumantes tem mais propensão à desenvolver problemas cardíacos
 **False.**
 <div align="center">
-<img src="https://imgur.com/BTItbwi" />
+<img src="https://imgur.com/BTItbwi.png" />
 </div><br>
 
 **Hypothesis 03:**
 Pessoas que bebem tem mais propensão à desenvolver problemas cardíacos
 **False.**
 <div align="center">
-<img src="https://imgur.com/UKKrcNC" />
+<img src="https://imgur.com/UKKrcNC.png" />
 </div><br>
 
 
@@ -98,7 +98,7 @@ Pessoas que bebem tem mais propensão à desenvolver problemas cardíacos
 
 Foram treinados alguns modelos de ML e dentre eles foi separado os modelos com melhores parâmetros para fazer avaliação de performance. 
 <div align="center">
-<img src="https://imgur.com/6hLimWs" />
+<img src="https://imgur.com/6hLimWs.png" />
 </div><br>
 
 Escolhi seguir com os modelos: XGBoostClassifier, LGBMClassifier, LogistiRegression e SGDClassifier pois apresentaram o melhor balanço entre Precisão, Recall e f1-score.
@@ -111,12 +111,12 @@ Contudo, preferi seguir com o XGBoostClassifier por ser mais rápido e mais opti
 
 Avaliação da Matrix de confusão:
 <div align="center">
-<img src="https://imgur.com/0usIK4Y" />
+<img src="https://imgur.com/0usIK4Y.png" />
 </div><br>
 
 Avaliação da Curva ROC:
 <div align="center">
-<img src="https://imgur.com/CH8YXK0" />
+<img src="https://imgur.com/CH8YXK0.png" />
 </div><br>
 
 
